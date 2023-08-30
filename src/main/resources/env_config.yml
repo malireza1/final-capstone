@@ -1,0 +1,4 @@
+ui:
+   browser: fireFox
+   headless: true
+   url: https://tek-retail-ui.azurewebsites.net/
