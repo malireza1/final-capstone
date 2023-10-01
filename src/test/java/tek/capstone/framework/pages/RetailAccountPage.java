@@ -64,8 +64,10 @@ public class RetailAccountPage extends BaseSetup{
 	// Remove Credit Card or D Card
 	@FindBy(xpath = "//button[text()='remove']")
 	public WebElement removeBttn;
-	 @FindBy(id = "paymentSubmitBtn")
-	 public WebElement addAccoutnCard;
+	@FindBy(xpath = "//h1[@class='account__payment-new-title']")
+	public WebElement addCardHeader;
+	@FindBy(xpath = "//p[@class='account__payment-sub-title']")
+	public WebElement paymentList;
 	
 	
 	
@@ -111,7 +113,9 @@ public class RetailAccountPage extends BaseSetup{
 	public WebElement udateSuccesAddressMassg;
 	
 // Remove Address
-	@FindBy(xpath = "//button[text()='Remove']")
-	public WebElement removeAddressBttn;
+	@FindBy(xpath="//div[@class='account__address-single']")
+	public WebElement firstAddressBox;
+	@FindBy(xpath= "//div//button[@class='account__address-btn' and text()='Remove']")
+	public WebElement RemoveAddressBtn;
 	
 }

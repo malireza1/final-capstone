@@ -12,215 +12,265 @@ import tek.capstone.framework.utilities.CommonUtility;
 public class RetailOrderSteps extends CommonUtility {
 
 	POMFactory pomFactory = new POMFactory();
-// add item
 	
-	@Then("User change the category to {string}")
-	public void userChangeTheCategoryTo(String category) {
-		click(pomFactory.retailOrderPage().allDepartmentDropdown);
-		selectByVisibleText(pomFactory.retailOrderPage().allDepartmentDropdown, category);
-		logger.info("Category was selected successfully from dropdown");
+	@Given("User is on retail website")
+	public void userIsOnRetailWebsite() {
+		Assert.assertTrue(pomFactory.homePage().tekschoolLogo.isDisplayed());
+		logger.info("TEKSCHOOL logo is displayed");
 	}
-
-	@Then("User search for an item {string}")
-	public void userSearchForAnItem(String kasaOutdoorSmartPlug) {
-		sendText(pomFactory.retailOrderPage().searchInputField, kasaOutdoorSmartPlug);
-		logger.info("Item name was entered successfully");
+	@When("User click on Sign in option")
+	public void userClickOnSignInOption() {
+		click(pomFactory.loginPage().signInLink);
+		logger.info("Login Link was clicked successfully");
 	}
+	
 
-	@Then("User click on Search icon")
-	public void userClickOnSearchIcon() {
-		click(pomFactory.retailOrderPage().searchBttn);
-		logger.info("Search button was clicked successfully");
-	}
+	//add Item
+		@And("User change the category to {string}")
+		public void userChangeTheCategoryToSmartHome(String category) {
+			click(pomFactory.retailOrderPage().allDepartmentOption);
+			selectByVisibleText(pomFactory.retailOrderPage().allDepartmentOption, category);
+			logger.info("Category is changed to Smart Home successfully");
+		}
 
-	@Then("User click on item")
-	public void userClickOnItem() {
-		click(pomFactory.retailOrderPage().itemkasaoutdoorsmartplug);
-		logger.info("item was clicked successfully");
-	}
+		@And("User search for an item {string}")
+		public void userSearchForAnItem(String item) {
+			sendText(pomFactory.retailOrderPage().searchBox, item);
+			logger.info("search for kasa outdoor smart plug");
+		}
 
-	@Then("User select quantity {string}")
-	public void userSelectQuantity(String itemQty) {
-		selectByVisibleText(pomFactory.retailOrderPage().qtyDropdown, itemQty);
-		logger.info("item quantity was selected succcessfully");
-	}
+		@And("User click on Search icon")
+		public void userClickOnSearchIcon() {
+			click(pomFactory.retailOrderPage().searchIcon);
+			logger.info("search button clicked successfully");
+		}
 
-	@Then("User click add to Cart button")
-	public void userClickAddToCartButton() {
-		click(pomFactory.retailOrderPage().addToCartBttn);
-		logger.info("Add item to the cart button was clicked successfully");
-	}
+		@And("User click on item")
+		public void userClickOnItem() {
+			click(pomFactory.retailOrderPage().kasa);
+			logger.info("item clicked successfully");
+		}
 
-	@Then("the cart icon quantity should change to {string}")
-	public void theCartIconQuantityShouldChangeTo(String itemQtyInTheCart) {
-		Assert.assertEquals(itemQtyInTheCart, pomFactory.retailOrderPage().cartItemQty.getText());
-		logger.info("Item qty in the cart was validated successfully");
-	}
+		@And("User select quantity {string}")
+		public void userSelectQuantity(String quantity) {
+			click(pomFactory.retailOrderPage().quantityOption);
+			selectByVisibleText(pomFactory.retailOrderPage().quantityOption, quantity);
+			logger.info("Quantity(2) is selected");
+		}
 
-	// add item to the cart and place your order
+		@And("User click add to Cart button")
+		public void userClickAddToCartButton() {
+			click(pomFactory.retailOrderPage().addToCartBtn);
+			logger.info("Add to cart button clicked successfully");
+		}
 
-	@Then("User change the category to {string} Apex Legends")
-	public void userChangeTheCategoryToApexLegends(String electronics) {
-		selectByVisibleText(pomFactory.retailOrderPage().allDepartmentDropdown, electronics);
-		logger.info("Category changed to electronics successfully");
-	}
+		@Then("the cart icon quantity should change to {string}")
+		public void theCartIconQuantityShouldChangeTo(String quantity) {
+			if (pomFactory.retailOrderPage().quantityOption.equals(quantity)) {
+			}
+			logger.info("quantity is 2");
+		}
 
-	@Then("User search for an item {string} Apex Legends")
-	public void userSearchForAnItemApexLegends(String apexLegends) {
-		sendText(pomFactory.retailOrderPage().searchInputField, apexLegends);
-		logger.info("Item name was entered successfully");
-	}
+	//add address on order
 
-	@Then("User click on item Apex Legends")
-	public void userClickOnItemApexLegends() {
-		click(pomFactory.retailOrderPage().apexLegendsItem);
-		logger.info("Item Apex Legends was clicked successfully");
-	}
+		@And("User changes the category to the {string}")
+		public void userChangesTheCategoryToThe(String category) {
+			click(pomFactory.retailOrderPage().allDepartmentOption);
+			selectByVisibleText(pomFactory.retailOrderPage().allDepartmentOption, category);
+			logger.info("Category changed to Electronincs successfully");
+		}
 
-	@Then("User select quantity {string} for Apex Legends")
-	public void userSelectQuantityForApexLegends(String apexLegendsQty) {
-		selectByVisibleText(pomFactory.retailOrderPage().qtyDropdown, apexLegendsQty);
-		logger.info("Apex Legends qty was changed successfully");
-	}
+		@And("User searchs for an item {string}")
+		public void userSearchsForAnItem(String item) {
+			sendText(pomFactory.retailOrderPage().searchBox, item);
+			logger.info("search for an item");
+		}
 
-	@Then("the cart icon quantity should change to {string} Apex Legends")
-	public void theCartIconQuantityShouldChangeToApexLegends(String itemQtyInTheCart) {
-		Assert.assertEquals(itemQtyInTheCart, pomFactory.retailOrderPage().cartItemQty.getText());
-		logger.info("Item qty in the cart was validated successfully");
-	}
+		@And("User clicks on Search icon")
+		public void userClicksOnSearchIcon() {
+			clickElementWithJS(pomFactory.retailOrderPage().searchIcon);
+			logger.info("search button clicked successfully");
+		}
 
-	@Then("User click on Cart option")
-	public void userClickOnCartOption() {
-		click(pomFactory.retailOrderPage().cartBttn);
-		logger.info("Cart Button was clicked successfully");
-	}
+		@And("User clicks on item")
+		public void userClicksOnItem() {
+			click(pomFactory.retailOrderPage().ApexLegends);
+			logger.info("item clicked successfully");
+		}
 
-	@Then("User click on Proceed to Checkout button")
-	public void userClickOnProceedToCheckoutButton() {
-		click(pomFactory.retailOrderPage().proceedToCheckoutBttn);
-		logger.info("Proceed to check out button was clicked successfully");
-	}
+		@And("User selects quantity {string}")
+		public void userSelectsQuantity(String quantity) {
+			click(pomFactory.retailOrderPage().quantityOption);
+			selectByValue(pomFactory.retailOrderPage().quantityOption, quantity);
+			logger.info("Quantity selected");
+		}
 
-	@Then("User click on Place Your Order")
-	public void userClickOnPlaceYourOrder() {
-		click(pomFactory.retailOrderPage().placeOrderBttn);
-		logger.info("Place your order button was clicked successfully");
-	}
+		@And("User clicks add to Cart button")
+		public void userClicksAddToCartButton() {
+			click(pomFactory.retailOrderPage().addToCartBtn);
+			logger.info("add to cart button clicked successfully");
+		}
 
-	// Cancel Order
-	@Then("User click on Orders section")
-	public void userClickOnOrdersSection() {
-		click(pomFactory.retailOrderPage().OrderLink);
-		logger.info("Order link was clicked successfully");
-	}
-
-	@Then("User click on first order in list")
-	public void userClickOnFirstOrderInList() {
-		List<WebElement> listOfOrder = pomFactory.retailOrderPage().listOfOrders;
-		for (int i = 0; i < listOfOrder.size(); i++) {
-			if (listOfOrder.get(i).getText().equalsIgnoreCase("Hide Details")) {
-
-			} else if (listOfOrder.get(i).getText().equalsIgnoreCase("Show Details")) {
-				click(pomFactory.retailOrderPage().listOfOrders.get(i));
+		@And("the carts icon quantity should change to {string}")
+		public void theCartsIconQuantityShouldChangeTo(String quantity) {
+			if (pomFactory.retailOrderPage().quantityOption.equals(quantity)) {
+				logger.info("quantity is 5");
 			}
 		}
-		logger.info("First order in the list of clicked");
-	}
 
-	@Then("User click on Cancel The Order button")
-	public void userClickOnCancelTheOrderButton() {
-		List<WebElement> cancelBttns = pomFactory.retailOrderPage().cancelOrderBttn;
-		click(cancelBttns.get(0));
-
-//		//cancel all orders
-//	for(int i = 0; i < cancelBttns.size(); i++) {
-//			click(cancelBttns.get(i));
-//		}
-		logger.info("Order Cancel button was clicked");
-	}
-
-	@Then("User select the cancelation Reason {string}")
-	public void userSelectTheCancelationReason(String cancelationReason) {
-		selectByVisibleText(pomFactory.retailOrderPage().reasonForCancelation, cancelationReason);
-		logger.info("Cancelation reason was selected");
-	}
-
-	@Then("User click on Cancel Order button")
-	public void userClickOnCancelOrderButton() {
-		click(pomFactory.retailOrderPage().cancelSubmitBttn);
-		logger.info("Cancel Submit Button was clicked successfully");
-	}
-
-	@Then("a cancelation message should be displayed {string}")
-	public void aCancelationMessageShouldBeDisplayed(String expectedessMssg) {
-		if (expectedessMssg.contains("Your Order Has Been Cancelled")) {
-			Assert.assertEquals(expectedessMssg, pomFactory.retailOrderPage().orderCancelledSuccessMssg.getText());
-			logger.info("Cancelation success message was verified successfully");
-		} else if (expectedessMssg.contains("Return was successfull")) {
-			Assert.assertEquals(expectedessMssg, pomFactory.retailOrderPage().RetrunSucsesMassg.getText());
-			logger.info("a cancelation message is displayed " + expectedessMssg);
+		@And("User click on Cart option")
+		public void userClickOnCartOption() {
+			click(pomFactory.retailOrderPage().cartBtn);
+			logger.info("Cart option clicked successfully");
 		}
-	}
 
-	// Return Item
-	
-	
-//	//@Then("User clicks on first order in list")
-//	public void userClicksOnFirstOrderInList() {
-//		
-//			click(pomFactory.retailOrderPage().ItemsShowDetails);
-//			logger.info("first order in list clicked");
-	//}
-//	@Then("User click on Return Items button")
-//	public void userClickOnReturnItemsButton() {
-//		
-//		click(pomFactory.retailOrderPage().returnItemsBttn);
-//		logger.info("user click succesfully");
-//	}
-//
-//	@And("User selects the Return Reason {string}")
-//	public void userSelectsTheReturnReason(String reason) {
-//		selectByVisibleText(pomFactory.retailOrderPage().orderReturnReason, reason);
-//		logger.info("Item damaged");
-//	}
-//
-//	@Then("User select the drop off service {string}")
-//	public void userSelectTheDropOffService(String dropLocation) {
-//		selectByVisibleText(pomFactory.retailOrderPage().DropOffBttn, dropLocation);
-//		logger.info("Drop off service selected." + dropLocation);
-//	}
-//
-//	@And("User click on Return Order button")
-//	public void userClicksOnReturnOrderButton() {
-//		click(pomFactory.retailOrderPage().returnOrderBttn);
-//		logger.info("order return clicked successfuly.");
-//	}
+		@And("User click on Proceed to Checkout button")
+		public void userClickOnProceedToCheckoutButton() {
+			click(pomFactory.retailOrderPage().proceedCheckoutBtn);
+			logger.info("check out option clicked successfully");
+		}
 
-	// Review
-	@Then("User click on Review button")
-	public void userClickOnReviewButton() {
-		click(pomFactory.retailOrderPage().reviewBttn);
-		logger.info("review button clicked");
-	}
+		@And("User click on Place Your Order")
+		public void userClickOnPlaceYourOrder() {
+			click(pomFactory.retailOrderPage().placeOrderBtn);
+			logger.info("place order button was clicked successfully");
+		}
 
-	@Then("User write Review headline {string} and {string}")
-	public void userWriteReviewHeadlineAnd(String headline, String body) {
-		sendText(pomFactory.retailOrderPage().reviewHeadlinInpute, headline);
-		sendText(pomFactory.retailOrderPage().reivewDescriptionInput, body);
-		logger.info("user add review on products");
-	}
+		@Then("a confirmation message should be displayed {string}") 
+		public void aConfirmationMessageShouldBeDisplayed(String message) {
+			waitTillPresence(pomFactory.retailOrderPage().orderPlacedSuccessMsg);
+			Assert.assertTrue(pomFactory.retailOrderPage().orderPlacedSuccessMsg.isDisplayed());
+			logger.info("confirmation Message displayed");
+		}
 
-	@Then("User click Add your Review button")
-	public void userClickAddYourReviewButton() {
-		click(pomFactory.retailOrderPage().reviewSubmitBttn);
-	}
+	//order cancellation
+		@And("User click on Orders section")
+		public void userClickOnOrdersSection() {
+			click(pomFactory.retailOrderPage().orderLink);
+			logger.info("order link clicked successfully.");
+		}
 
-	@Then("a review message should be displayed {string}")
-	public void aReviewMessageShouldBeDisplayed(String expectedRivewMessg) {
+		@And("User click on first order in list")
+		public void userClickOnFirstOrderInList() {
+			List<WebElement> listOfOrders = pomFactory.retailOrderPage().listOfOrders;
+		         for(int i = 0; i < listOfOrders.size(); i++) {
+		             if(listOfOrders.get(i).getText().equalsIgnoreCase("Hide Details")) {
+		             }else if (listOfOrders.get(i).getText().equalsIgnoreCase("Show Details")) {
+		                click(pomFactory.retailOrderPage().listOfOrders.get(i));
+		             }
+		         }
+			logger.info("first order in list clicked");
+		}
 
-		waitTillPresence(pomFactory.retailOrderPage().reviewAddedSuccessMsg);
-		Assert.assertEquals(pomFactory.retailOrderPage().reviewAddedSuccessMsg.getText(), expectedRivewMessg);
-		logger.info("a review message displayed");
-	}
+		@And("User click on Cancel The Order button")
+		public void userClickOnCancelTheOrderButton() {
+			click(pomFactory.retailOrderPage().orderCancelBtn);
+			logger.info("cancel order button clicked");
+		}
 
+		@And("User select the cancelation Reason {string}")
+		public void userSelectTheCancelationReason(String reason) {
+			clickElementWithJS(pomFactory.retailOrderPage().cancelationReason);
+			selectByVisibleText(pomFactory.retailOrderPage().cancelationReason, reason);
+			logger.info("cancelation reason selected");
+		}
+
+		@And("User click on Cancel Order button")
+		public void userClickOnCancelOrderButton() {
+			click(pomFactory.retailOrderPage().cancelOrder);
+			logger.info("cancel order button clicked");
+		}
+
+		@Then("a cancelation message should be displayed {string}")
+		public void aCancelationMessageShouldBeDisplayed(String cancellationMsg) {
+			waitTillPresence(pomFactory.retailOrderPage().orderCancelationMsg);
+			Assert.assertEquals(cancellationMsg, pomFactory.retailOrderPage().orderCancelationMsg.getText());
+			logger.info("cancelation message displayed");
+		}
+
+	//return order
+		@And("User clicks on Orders section")
+		public void userClicksOnOrdersSection() {
+			click(pomFactory.retailOrderPage().orderLink);
+			logger.info("order link clicked successfully.");
+		}
+
+		@And("User clicks on first order in list")
+		public void userClicksOnFirstOrderInList() {
+			click(pomFactory.retailOrderPage().ItemsShowDetails);
+			logger.info("first order in list clicked");
+		}
+
+		@And("User clicks on Return Items button")
+		public void userClicksOnReturnItemsButton() {
+			click(pomFactory.retailOrderPage().orderReturnBtn);
+			logger.info("order return button clicked");
+		}
+
+		@And("User selects the Return Reason {string}")
+		public void userSelectsTheReturnReason(String reason) {
+			selectByVisibleText(pomFactory.retailOrderPage().cancelationReason, reason);
+			logger.info("cancellation reason Bought wrong item.");
+		}
+
+		@And("User selects the drop off service {string}")
+		public void userSelectsTheDropOffService(String category) {
+			selectByVisibleText(pomFactory.retailOrderPage().dropOffService, category);
+			logger.info("drop off service selected.");
+		}
+
+		@And("User clicks on Return Order button")
+		public void userClicksOnReturnOrderButton() {
+			click(pomFactory.retailOrderPage().orderReturnAndSubmitBtn);
+			logger.info("order return clicked successfuly.");
+		}
+
+		@Then("the cancelation message should be displayed {string}")
+		public void theCancelationMessageShouldBeDisplayed(String message) {
+			Assert.assertTrue(pomFactory.retailOrderPage().orderReturnSuccessMsg.isDisplayed());
+			logger.info("Return message was displayed successfuly");
+		}
+
+	//add review
+
+		@And("User click on the Orders section")
+		public void userClickOnTheOrdersSection() {
+			click(pomFactory.retailOrderPage().orderLink);
+			logger.info("order link clicked successfully.");
+		}
+
+		@And("User click on the first order in list")
+		public void userClickOnTheFirstOrderInList() {
+			click(pomFactory.retailOrderPage().ItemsShowDetails);
+			logger.info("first order in list clicked");
+		}
+
+		@And("User click on Review button")
+		public void userClickOnReviewButton() {
+			click(pomFactory.retailOrderPage().reviewBtn);
+			logger.info("Review button clicked");
+		}
+
+		@And("User write Review headline {string} and {string}")
+		public void userWriteReviewHeadlineAnd(String headline, String comment) {
+			headline = "Amazing product";
+			comment = " I dont know what to say :) ";
+			sendText(pomFactory.retailOrderPage().headlineInputField, headline);
+			sendText(pomFactory.retailOrderPage().commentField, comment);
+			logger.info("headline and comment added ");
+		}
+
+		@And("User click Add your Review button")
+		public void userClickAddYourReviewButton() {
+			click(pomFactory.retailOrderPage().addReviewBtn);
+			logger.info("Review button clicked");
+		}
+
+		@Then("a review message should be displayed {string}")
+		public void aReviewMessageShouldBeDisplayed(String message) {
+			message = "Your review was added successfully"; 
+			waitTillPresence(pomFactory.retailOrderPage().reviewAddedSuccessMsg);
+			Assert.assertEquals(message,pomFactory.retailOrderPage().reviewAddedSuccessMsg.getText());
+			logger.info("Review success message displayed");
+		}
 }

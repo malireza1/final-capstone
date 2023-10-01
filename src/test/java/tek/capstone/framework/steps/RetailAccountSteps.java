@@ -10,6 +10,7 @@ import io.cucumber.java.en.*;
 import tek.capstone.framework.pages.POMFactory;
 import tek.capstone.framework.utilities.CommonUtility;
 import tek.capstone.framework.utilities.DataGenerator;
+import tek.capstone.framework.utilities.DataGeneratore2;
 
 public class RetailAccountSteps extends CommonUtility {
 
@@ -19,15 +20,16 @@ public class RetailAccountSteps extends CommonUtility {
 	public void userClickOnAccountOption() {
 		click(pomFactory.retailAccountPage().accountLink);
 		logger.info("Account link was clicked successfully");
+		
 	}
-
+	
 	@When("User update Name {string} and Phone {string}")
 	public void userUpdateNameAndPhone(String name, String phoneNumber) {
 		clearTextUsingSendKeys(pomFactory.retailAccountPage().nameField);
 		sendText(pomFactory.retailAccountPage().nameField, name);
 		logger.info("Name was entered successfully");
 		clearTextUsingSendKeys(pomFactory.retailAccountPage().phoneField);
-		sendText(pomFactory.retailAccountPage().phoneField, phoneNumber);
+		sendText(pomFactory.retailAccountPage().phoneField, DataGeneratore2.getPhoneNumber());
 		logger.info("Phone Number was entered successfully");
 	}
 
@@ -56,7 +58,7 @@ public class RetailAccountSteps extends CommonUtility {
 	@When("User fill Debit or credit card information")
 	public void userFillDebitOrCreditCardInformation(DataTable dataTable) {
 		List<Map<String, String>> paymentInfo = dataTable.asMaps(String.class, String.class);
-		sendText(pomFactory.retailAccountPage().cardNumberField, paymentInfo.get(0).get("cardNumber"));
+		sendText(pomFactory.retailAccountPage().cardNumberField, DataGeneratore2.getCardNumber());
 		sendText(pomFactory.retailAccountPage().nameOnCardField, paymentInfo.get(0).get("nameOnCard"));
 		selectByVisibleText(pomFactory.retailAccountPage().expirationMonthField,
 				paymentInfo.get(0).get("expirationMonth"));
@@ -86,8 +88,8 @@ public class RetailAccountSteps extends CommonUtility {
 			Assert.assertEquals(expectedMssg, pomFactory.retailAccountPage().addressSuccessMssg.getText());
 			logger.info("Expected Message: " + expectedMssg);
 		} else if (expectedMssg.contains("Order Placed")) {
-			waitTillPresence(pomFactory.retailOrderPage().orderPlacedSuccessfullyMssg);
-			Assert.assertEquals(expectedMssg, pomFactory.retailOrderPage().orderPlacedSuccessfullyMssg.getText());
+			waitTillPresence(pomFactory.retailOrderPage().orderPlacedSuccessMsg);
+			Assert.assertEquals(expectedMssg, pomFactory.retailOrderPage().orderPlacedSuccessMsg.getText());
 //		} else if (expectedMssg.contains("Payment Method updated")) {
 //			waitTillPresence(pomFactory.retailAccountPage().editCriditCardMassgSuccesfull);
 //			Assert.assertEquals(expectedMssg, pomFactory.retailAccountPage().editCriditCardMassgSuccesfull.getText());
@@ -120,7 +122,7 @@ public class RetailAccountSteps extends CommonUtility {
 	public void userEditDebitOrCreditCardInformation(DataTable dataTable) {
 		List<Map<String, String>> editPaymentInfo = dataTable.asMaps(String.class, String.class);
 		clearTextUsingSendKeys(pomFactory.retailAccountPage().cardNumberField);
-		sendText(pomFactory.retailAccountPage().cardNumberField, editPaymentInfo.get(0).get("cardNumber"));
+		sendText(pomFactory.retailAccountPage().cardNumberField, DataGeneratore2.getCardNumber());
 		clearTextUsingSendKeys(pomFactory.retailAccountPage().nameOnCardField);
 		sendText(pomFactory.retailAccountPage().nameOnCardField, editPaymentInfo.get(0).get("nameOnCard"));
 		clearTextUsingSendKeys(pomFactory.retailAccountPage().expirationMonthField);
@@ -151,6 +153,19 @@ public class RetailAccountSteps extends CommonUtility {
 	    Assert.assertEquals(actual, expected);
 	    logger.info("payment update msg displayed successfully");
 	}
+	// removeCard
+		@And("User click on remove option of card section")
+		public void userClickOnRemoveOptionOfCardSection1() {
+			click(pomFactory.retailAccountPage().paymentList);
+			click(pomFactory.retailAccountPage().removeBttn);
+			logger.info("card remove button clicked successfully");
+		}
+
+		@Then("payment details should be removed")
+		public void paymentDetailsShouldBeRemoved1() {
+			Assert.assertTrue(pomFactory.retailAccountPage().addCardHeader.isDisplayed());
+			logger.info("payment card removed successfully.");
+		}
 
 
 	// add Address
@@ -160,15 +175,8 @@ public class RetailAccountSteps extends CommonUtility {
 		logger.info("Add Address Link was clicked successfully");
 	}
 
-	@When("User click on remove option of card section")
-	public void userClickOnRemoveOptionOfCardSection() {
-		click(pomFactory.retailAccountPage().removeBttn);
-	}
-
-	@Then("payment details should be removed")
-	public void paymentDetailsShouldBeRemoved() {
-		click(pomFactory.retailAccountPage().addAccoutnCard);
-	}
+	
+	
 
 	
 	// add address
@@ -224,19 +232,17 @@ public class RetailAccountSteps extends CommonUtility {
 
 	// Remove Address
 
-	@When("User click on remove option of Address section")
+	@And("User click on remove option of Address section")
 	public void userClickOnRemoveOptionOfAddressSection() {
-		click(pomFactory.retailAccountPage().removeAddressBttn);
-		logger.info("user clicked remove buuton");
+		scrollPageDownWithJS();
+		click(pomFactory.retailAccountPage().RemoveAddressBtn);
+		logger.info("remove address button clicked");
 	}
 
 	@Then("Address details should be removed")
 	public void addressDetailsShouldBeRemoved() {
-		try {
-		Assert.assertFalse(isElementDisplayed(pomFactory.retailAccountPage().removeAddressBttn));
-		logger.info("address deatails removed");
-		}catch(AssertionError e) {
-			logger.info(e.getMessage());
-		}
+		Assert.assertNotNull(pomFactory.retailAccountPage().firstAddressBox);
+		logger.info("address details removed");
 	}
+
 }

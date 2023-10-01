@@ -12,7 +12,7 @@ public class LoginPage extends BaseSetup{
 		PageFactory.initElements(getDriver(), this);
 	}
 
-	@FindBy(linkText = "Sign in")
+	@FindBy(id = "signinLink")
 	public WebElement signInLink;
 	
 	@FindBy(id = "email")
