@@ -6,7 +6,7 @@ Background:
 	When User click on the login link
 	And User enter email 'student20@tekschool.us' and password 'Student@20'
 	And User click on login button
-	Then Verify user is logged in
+	Then User should be logged in into Account
 
 @updatePI
 Scenario: Verify User can update Profile Information

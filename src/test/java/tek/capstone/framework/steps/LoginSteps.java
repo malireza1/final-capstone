@@ -6,6 +6,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import tek.capstone.framework.pages.POMFactory;
 import tek.capstone.framework.utilities.CommonUtility;
+import tek.capstone.framework.utilities.DataGeneratore2;
 
 public class LoginSteps extends CommonUtility{
 	
@@ -33,12 +34,11 @@ public class LoginSteps extends CommonUtility{
 		click(pomFactory.loginPage().loginBttn);
 		logger.info("Login button was clicked successfully");
 	}
-	@Then("Verify user is logged in")
-	public void verifyUserIsLoggedIn() {
-		Assert.assertTrue(pomFactory.loginPage().logoutBttn.isDisplayed());
-		logger.info("User is logged in successfully");
+	@Then("User should be logged in into Account")
+	public void userShouldBeLoggedInIntoAccount() {
+	Assert.assertTrue(pomFactory.loginPage().logoutBttn.isDisplayed());
+	logger.info("user is logged in");
 	}
-	
 	//register
 	@When("User click on create new account link")
 	public void userClickOnCreateNewAccountLink() {
@@ -48,7 +48,7 @@ public class LoginSteps extends CommonUtility{
 	@When("User enter {string} and {string} and {string} and {string}")
 	public void userEnterAndAndAnd(String name, String email, String password, String confPassword) {
 		sendText(pomFactory.loginPage().nameInputField, name);
-		sendText(pomFactory.loginPage().emailInputField, email);
+		sendText(pomFactory.loginPage().emailInputField, DataGeneratore2.emailGenerator());
 		sendText(pomFactory.loginPage().passwordInputField, password);
 		sendText(pomFactory.loginPage().confirmPassInputField, confPassword);
 		logger.info("User information was entered successfully");

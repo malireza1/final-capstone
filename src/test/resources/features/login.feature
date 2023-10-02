@@ -10,7 +10,7 @@ Background:
 Scenario: Verify user is able to login to tek retail website
 	And User enter email 'student20@tekschool.us' and password 'Student@20'
 	And User click on login button
-	Then Verify user is logged in
+	Then User should be logged in into Account
 	
 @register
 Scenario Outline: Verify user is able to register with tek retail website
@@ -21,6 +21,4 @@ Scenario Outline: Verify user is able to register with tek retail website
 	
 Examples:
 |name|email|password|confPassword|
-|guardians|guardianscucumbery56@gmail.com|Guardians345$|Guardians345$|
-|guardians|guardianscucumbery57@gmail.com|Guardians345$|Guardians345$|
-|guardians|guardianscucumbery58@gmail.com|Guardians345$|Guardians345$|
+|guardians|guardiansstu156@gmail.com|Guardians345$|Guardians345$|
